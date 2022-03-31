@@ -11,6 +11,7 @@
             <ContactList
                 v-if="filteredContactsCount > 0"
                 :contacts="filteredContacts"
+                v-model:activeIndex="activeIndex"
             />
             <p v-else>Không có liên hệ nào.</p>
 
@@ -40,7 +41,7 @@
                 <ContactCard :contact="activeContact" />
                 <router-link
                     :to="{
-                        name: 'contact.edit',
+                        name: 'EditContact',
                         params: { id: activeContact.id },
                     }"
                 >
@@ -94,6 +95,7 @@ export default {
             );
         },
         activeContact() {
+            console.log(this.activeIndex)
             if (this.activeIndex < 0) return null;
             return this.contacts[this.activeIndex];
         },
@@ -109,10 +111,12 @@ export default {
                 console.log(error);
             }
         },
+
         refreshList() {
             this.retrieveContacts();
             this.activeIndex = -1;
         },
+
         async removeAllContacts() {
             if (confirm("Bạn muốn xóa tất cả Liên hệ?")) {
                 try {
@@ -123,14 +127,14 @@ export default {
                 }
             }
         },
+
         goToAddContact() {
-            this.$router.push({ name: "contact.add" });
+            this.$router.push({ name: "AddContact" });
         },
     },
     mounted() {
         this.refreshList();
     },
-    // Đoạn mã xử lý đầy đủ sẽ trình bày bên dưới
 };
 </script>
 

@@ -19,6 +19,7 @@ export default {
     },
     methods: {
         select(index) {
+            // console.log("contact list " + index);
             this.selectedIndex = index;
             this.$emit("update:activeIndex", index);
         },
@@ -32,7 +33,7 @@ export default {
             class="list-group-item"
             v-for="(contact, index) in contacts"
             :key="contact.id"
-            :class="{ active: index === selectedIndex }"
+            :class="{ active: index === activeIndex }"
             @click="select(index)"
         >
             {{ contact.name }}
